@@ -1,37 +1,39 @@
 
 import React, { useState } from 'react';
-import { WordToken, PartOfSpeech } from '../types';
-import { POS_COLORS, POS_LABELS } from '../constants';
+import { WordToken } from '../types';
+import { POS_COLORS } from '../constants';
 
 interface TokenProps {
   token: WordToken;
-  showLabels: boolean;
 }
 
-const Token: React.FC<TokenProps> = ({ token, showLabels }) => {
+const Token: React.FC<TokenProps> = ({ token }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <span 
-      className="relative inline-block mx-0.5 group cursor-help transition-all duration-200"
+      className="relative inline-block group cursor-default transition-all duration-200"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <span className={`${POS_COLORS[token.pos]} ${token.isPhrase ? 'bg-yellow-50 px-0.5 rounded border-b-2 border-yellow-200' : ''}`}>
+      <span className={`
+        ${POS_COLORS[token.pos]} 
+        ${token.isPhrase ? 'bg-amber-50/50 border-b-2 border-amber-200/50 px-0.5 rounded-sm' : ''}
+        transition-colors duration-200
+      `}>
         {token.text}
       </span>
       
-      {showLabels && (
-        <span className="absolute -top-4 left-0 text-[8px] font-bold text-slate-400 opacity-60 uppercase tracking-tighter">
-          {POS_LABELS[token.pos]}
-        </span>
-      )}
-
       {isHovered && token.explanation && (
-        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-slate-900 text-white text-xs p-2 rounded shadow-xl pointer-events-none">
-          <div className="font-bold mb-1 border-b border-slate-700 pb-1 uppercase">{token.pos}</div>
-          {token.explanation}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-900"></div>
+        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 bg-white border border-slate-200 text-slate-700 text-[11px] p-3 rounded-lg shadow-2xl pointer-events-none animate-in fade-in zoom-in-95 duration-200">
+          <div className="flex items-center justify-between mb-1.5 pb-1.5 border-b border-slate-100">
+            <span className={`font-bold uppercase tracking-wider text-[9px] ${POS_COLORS[token.pos]}`}>
+              {token.pos}
+            </span>
+            {token.isPhrase && <span className="text-[9px] bg-amber-100 text-amber-700 px-1 rounded font-bold uppercase">Phrase</span>}
+          </div>
+          <p className="leading-normal font-normal">{token.explanation}</p>
+          <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white"></div>
         </div>
       )}
     </span>

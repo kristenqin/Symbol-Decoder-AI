@@ -3,8 +3,8 @@ import React from 'react';
 import { PartOfSpeech } from './types';
 
 export const POS_COLORS: Record<PartOfSpeech, string> = {
-  [PartOfSpeech.NOUN]: 'text-blue-600 font-medium',
-  [PartOfSpeech.VERB]: 'text-rose-600 font-bold',
+  [PartOfSpeech.NOUN]: 'text-rose-600 font-medium',
+  [PartOfSpeech.VERB]: 'text-blue-600 font-bold',
   [PartOfSpeech.ADJECTIVE]: 'text-emerald-600',
   [PartOfSpeech.ADVERB]: 'text-teal-500 italic',
   [PartOfSpeech.PREPOSITION]: 'text-slate-400',
